@@ -520,3 +520,14 @@ System.out.println(cal.add(3, 5));
 }
 }
  */
+
+ public class first{
+    public static void main(String[] args) {
+        
+    }
+}
+    class a{
+        public void print(){
+        System.out.println("printing....");
+    }
+}

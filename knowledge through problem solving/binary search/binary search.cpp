@@ -780,6 +780,26 @@ int count(vector<int>& arr, int n, int x) {
 
 */
 
+// search element in a rotated array for unique element
+
+// left half not sorted 
+// right half sorted
+// identify the sorted half is it the left half or is it the right half
+/*
+7 8 9 1 2 3 4 5 6 
+lo=0 hi=n-1 neta hobe mid hisab kore check korbo mid er left search
+space sorted naki right search space sorted
+tarpor je part sorted thakbe sei part a binary search apply korbo
+binary search deya target element khujbo jodi sorted space a element na pai
+sorted part k eliminate korbo
+ei vabe bar mid ber kore hisab korbo
+
+
+*/
+
+
+
+
 
 
 
