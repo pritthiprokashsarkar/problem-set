@@ -793,6 +793,388 @@ tarpor je part sorted thakbe sei part a binary search apply korbo
 binary search deya target element khujbo jodi sorted space a element na pai
 sorted part k eliminate korbo
 ei vabe bar mid ber kore hisab korbo
+left half ar right half a mid soho hisab hobe
+
+
+
+int search(vector<int>& arr, int n, int k)
+{
+    // Write your code here.
+    // Return the position of K in ARR else return -1.
+    int lo=0;
+    int hi=n-1;
+    while(hi-lo>=0){
+        int mid=(lo+hi)/2;
+        if(arr[mid]==k) return mid;
+        if(arr[lo]<=arr[mid]){ // left part ki sorted???
+            if(arr[lo]<=k && arr[mid]>=k){ // sorted er moddhe ki target element ase??
+                hi=mid-1; // thakle hi er range komau
+            }
+            else {
+                lo=mid+1; //naile sorted half a nai
+            }    
+        }
+        else{   // right half sorted
+            if(arr[mid]<=k && k<=arr[hi]){ // sorted half a ki k element ase??
+            // ei condition vul korse
+                lo=mid+1;
+            }
+            else{
+                hi=mid-1;
+            }
+
+        }
+    }
+    return -1;
+}
+
+
+main concept holo 1st a check right part sorted naki left part sorted
+left part sorted hoile left side a binary search 
+left sorted size e ki element ase na thakle right side a ase
+right part sorted hoile right side a binary search apply
+right sorted side a ki element ase na thakle left side a ase
+
+
+same question with duplicate elements
+
+main problem hoilo corner case arr[low]==arr[mid]==arr[high]
+suppose     3 3 3 3 1 2 3 3 3 3 3 target=1
+
+arr[lo]==arr[mid]==arr[hi] taile kon part bad debo eita identify kora jasse na ei jonne amra shrink korbo
+
+
+
+bool searchInARotatedSortedArrayII(vector<int>&arr, int k) {
+    // Write your code here.
+    int lo=0;
+    int hi=arr.size()-1;
+    while(hi-lo>=0){
+        int mid=(lo+hi)/2;
+        if(arr[mid]==k) return true;
+        if(arr[lo]==arr[mid] and arr[mid]==arr[hi]){
+            lo=lo+1;
+            hi=hi-1;
+            continue;
+        }
+        if(arr[lo]<=arr[mid]){
+            if(arr[lo]<=k && k<=arr[mid]){
+                hi=mid-1;
+            }
+            else{
+                lo=mid+1;
+            }
+        }
+        else{
+            if(arr[mid]<=k && k<=arr[hi]){
+                lo=mid+1;
+            }
+            else{
+                hi=mid-1;
+            }
+        }
+    }
+    return false;
+}
+
+
+minimum in the rotated array
+
+sorted half theke bar bar mininum ans nebo tarpor sorted half range theke bad deya debo
+
+int findMin(vector<int>& a)
+{
+	// Write your code here.
+	int lo=0;
+	int hi=a.size()-1;
+	int minn=INT_MAX;
+	while(hi-lo>=0){
+		int mid=(lo+hi)/2;
+		if(a[lo]<=a[mid]){ // left half sorted
+			minn=min(minn,a[lo]);
+			lo=mid+1;
+		}
+		else{
+			minn=min(minn,a[mid]);
+			hi=mid-1;
+		}
+	}
+	return minn;
+}
+
+
+more optimized code
+
+1st condition jodi pai a[lo]<=a[hi] taile already ekta part sorted hobe extra kore abr mid neya 
+binary search korar dorkar nai
+
+int findMin(vector<int>& a)
+{
+	// Write your code here.
+	int lo=0;
+	int hi=a.size()-1;
+	int minn=INT_MAX;
+	while(hi-lo>=0){
+		int mid=(lo+hi)/2;
+		if(a[lo]<=a[hi]){
+			minn=min(minn,a[lo]);
+		}
+		if(a[lo]<=a[mid]){ // left half sorted
+			minn=min(minn,a[lo]);
+			lo=mid+1;
+		}
+		else{
+			minn=min(minn,a[mid]);
+			hi=mid-1;
+		}
+	}
+	return minn;
+}
+
+BS-7. Find out how many times array has been rotated
+
+minimum je index a ase oi index ei value e totobar rotated kora hoise
+
+
+int findKRotation(vector<int> &a){
+    // Write your code here.  
+    int lo=0; int hi=a.size()-1;
+    int ans=99999999;
+    int ind=-1;
+    while(hi-lo>=0){
+        int mid=(hi+lo)/2;
+        if(a[lo]<=a[hi]){
+            if(a[lo]<ans){
+            ans=min(ans,a[lo]);
+            ind=lo;
+            }
+            
+            break;
+        }
+        if(a[lo]<=a[mid]){
+            if(a[lo]<ans){
+            ans=min(ans,a[lo]);
+            ind=lo;
+            }
+            lo=mid+1;
+        }
+        else{
+            if(a[mid]<ans){
+                ans=min(ans,a[mid]);
+                ind=mid;
+            }
+            hi=mid-1;
+        }
+    }
+    return ind;  
+}
+
+same problem with duplicates 
+
+implement with previous knowledge
+
+
+BS-8. Single Element in Sorted Array
+
+brute force
+if(n==1) return a[0] // exception
+for(int i=0;i<n;i++){
+    if(i==0){
+        if(a[i]!=a[i+1]) return a[i];
+    }
+    else if(i==n-1){
+        if(a[i]!=a[i-1]) return a[i];
+    }
+    else
+    {
+        if(a[i]!=a[i-1] ans a[i]!=a[i+1]) return a[i];
+    }
+}
+
+1 1 2 2 3 3 4 5 5 6 6
+0 1 2 3 4 5 6 7 8 9 10
+
+if standing index is even and right index(has duplicate and) is odd then the element is on the right
+if standing index is odd and right index(has elemenet and ) is even then the element is on the left
+ last and 1st element alada kore dekhbo
+
+eikhane unique element er bam pase protek even index er dan pase same element
+
+ar unique element er dan pse protek odd index dan pase same element
+
+int singleNonDuplicate(vector<int>& a)
+{
+	// Write your code here
+	int n=a.size();
+	if(n==1) return a[0];
+	if(a[0]!=a[1]) return a[0];
+	if(a[n-1]!=a[n-2]) return a[n-1];
+
+    // search space k aro choto korse jano corner case easily handle kora jai
+
+	int lo=1;
+	int hi=n-1;
+	while(hi-lo>=0){
+		int mid=(lo+hi)/2;
+		if(a[mid]!=a[mid+1] && a[mid]!=a[mid-1]) return a[mid];
+		if((mid%2==1 && a[mid]==a[mid-1]) ||(mid%2==0 && a[mid]==a[mid+1])){
+			lo=mid+1;
+		}
+		else{
+			hi=mid-1;
+		}
+	}
+}
+
+ BS-9. Find Peak Element
+
+
+ brute force solution
+ i==0 hoile a[i]>a[i+1] ar i==n-1 hoile a[i]>a[i-1]
+ for(int i=;i<n;i++){
+    if(i==0 || a[i]>a[i-1]) && (i==n-1 || a[i]>a[i-1]) return a[i]);
+ }
+1 2 3 4 5 6 7 8 5
+0 1 2 3 4 5 6 7 8 
+
+1 12 14 7 6 5 4 2 1 0
+0  1  2 3 4 5 6 7 8 9
+
+1 2 3 4 5 6 1st element peak element
+
+7 6 5 4 3 1 last element peak element
+
+ei 2ta corner case
+
+binary search eu hubohu same concept jodi a[mid]>a[mid-1] taile lo=mid+1 orthat peak pabo right side a or left side a
+corner case 
+
+
+int findPeakElement(vector<int> &a) {
+    // Write your code here
+    int n=a.size();
+    // corner cases
+    //1 2 3 4 5 6 7 8
+    // 8 7 6 5 4 3 2 1
+    if(n==1) return a[0];
+    if(a[0]>a[1]) return 0;
+    if(a[n-1]>a[n-2]) return n-1;
+
+    // main logic 1 10 14 7 6 5 4 3 2 1 0
+    int lo=1;
+    int hi=n-2;
+    while(hi-lo>=0){
+        int mid=(hi+lo)/2;
+        if(a[mid]>a[mid-1] && a[mid]>a[mid+1]) return mid;
+        else if(a[mid]>a[mid-1]) lo=mid+1;
+        // additional a[mid]>a[mid+1] and a[mid]>a[mid-1] deya lagbe na ei condition konodin o break hobe na
+        // emon case konodin o asbe na je ekta element thke boro arekta element theke choto
+        a[mid]>a[mid+1] and a[mid]<a[mid-1] or a[mid]>a[mid-1] and a[mid]<a[mid+1] emon case asbre na
+        else hi=mid-1;
+    }
+    return -1;
+}
+
+int findPeakElement(vector<int> &a) {
+    // Write your code here
+    int n=a.size();
+    // corner cases
+    //1 2 3 4 5 6 7 8
+    // 8 7 6 5 4 3 2 1
+    if(n==1) return a[0];
+    if(a[0]>a[1]) return 0;
+    if(a[n-1]>a[n-2]) return n-1;
+
+    // main logic 1 10 14 7 6 5 4 3 2 1 0
+    int lo=1;
+    int hi=n-2;
+    while(hi-lo>=0){
+        int mid=(hi+lo)/2;
+        if(a[mid]>a[mid-1] && a[mid]>a[mid+1]) return mid;
+        else if(a[mid]>a[mid-1]) lo=mid+1;
+        else if(a[mid]<a[mid+1]) hi=mid-1;
+        // 1 4 1 6 1 ei multiple case er joonne eita likhbo
+        else lo=mid+1;
+        // or else hi=mid-1; jodi mid 2 index k nirdesh kore taile lo or high k shift korbo
+
+    }
+    return -1;
+}
+
+
+BS-10. Finding Sqrt of a number using Binary Search
+
+binary search er ei related problem a always amra range janbo
+find the maximum integer which on squaring  <=n ei problem er moddheo pore
+
+brute force approach
+
+n=28;
+
+1 2 3 4 5 6 
+
+for(int i=1;i<=n;i++){
+    if(i*i<=n){
+        ans=i;
+    }
+    else break;
+}
+
+optimum approach
+
+int floorSqrt(int n)
+{
+    // Write your code here.
+    long long ans=-1;
+    int lo=0;
+    int hi=n;
+    while(hi-lo>=0){
+        long long mid=(hi+lo)/2;
+        if(mid*mid<=n){
+            ans=mid;
+            lo=mid+1;
+        }
+        else{
+            hi=mid-1;
+        }
+    }
+    return ans;
+}
+
+binary search er sob problem a sob somoy predicate function neya kaj korte hoi
+
+#include<bits/stdc++.h>
+// return 2 if >m
+// return 1 if ==m
+//   return 0 if <m
+long long fun(int n, int mid,int m){
+  long long ans=1;
+  for(int i=0;i<n;i++){
+    ans=ans*mid;
+
+    // overflow case er jonne binary exponentiation or simple kisu change kore
+    if(ans>m) return 2;
+  }
+  if(ans==m) return 1;
+  return 0;
+}
+int NthRoot(int n, int m) {
+  // Write your code here.
+
+    int lo=1;
+    int hi=m;
+    while(hi-lo>=0){
+      int mid=(hi+lo)/2;
+      if(fun(n,mid,m)==1){
+        return mid;
+      }
+      else if(fun(n,mid,m)==0){
+        lo=mid+1;
+      }
+      else hi=mid-1;
+    } 
+    return -1; 
+}
 
 
 */
