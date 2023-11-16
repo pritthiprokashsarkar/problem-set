@@ -86,7 +86,7 @@ int upper_bound(vector<int>&a, int element){
     int lo=0;
     while(hi-lo>1){
         int mid=(hi+lo)/2;
-        if(a[mid]<=element){ // equal element keu eliminate korte hobe
+        if(  <=element){ // equal element keu eliminate korte hobe
             lo=mid+1;
         }
         else{
@@ -1176,7 +1176,277 @@ int NthRoot(int n, int m) {
     return -1; 
 }
 
+https://www.codingninjas.com/studio/problems/minimum-rate-to-eat-bananas_7449064?utm_source=youtube&utm_medium=affiliate&utm_campaign=codestudio_Striver_BinarySeries&leftPanelTabValue=PROBLEM
+#include<bits/stdc++.h>
+using namespace std;
+long long pre(vector<int>&v, int mid){
+    long long ans=0;
+    for(int i=0;i<v.size();i++){
+        ans+=ceil((double)v[i] /(double)mid);
+    }
+    return ans;
+}
+int minimumRateToEatBananas(vector<int> &v, int h) {
+    // Write Your Code Here
+    int lo=1,hi=*max_element(v.begin(),v.end());
+    int ans=-1;
+    while(hi-lo>=0){
+        int mid=(hi+lo)/2;
+        if(pre(v, mid)<=h){
+            hi=mid-1;
+        }
+        else{
+            lo=mid+1;
+        }
+    }
+    return lo;  
 
+}
+
+or
+
+#include<bits/stdc++.h>
+using namespace std;
+long long pre(vector<int>&v, int mid){
+    long long ans=0;
+    for(int i=0;i<v.size();i++){
+        ans+=ceil(static_cast<double>(v[i]) / mid);
+    }
+    return ans;
+}
+int minimumRateToEatBananas(vector<int> &v, int h) {
+    // Write Your Code Here
+    int lo=1,hi=*max_element(v.begin(),v.end());
+    int ans=-1;
+    while(hi-lo>=0){
+        int mid=(hi+lo)/2;
+        if(pre(v, mid)<=h){
+            hi=mid-1;
+        }
+        else{
+            lo=mid+1;
+        }
+    }
+    return lo;  
+
+}
+
+
+or
+#include<bits/stdc++.h>
+using namespace std;
+long long pre(vector<int>&v, int mid){
+    long long ans=0;
+    for(int i=0;i<v.size();i++){
+        ans+=ceil(static_cast<double>(v[i]) / mid);
+    }
+    return ans;
+}
+int minimumRateToEatBananas(vector<int> &v, int h) {
+    // Write Your Code Here
+    int lo=1,hi=*max_element(v.begin(),v.end());
+    int ans=-1;
+    while(hi-lo>=0){
+        int mid=(hi+lo)/2;
+        if(pre(v, mid)<=h){
+            ans=mid;
+            hi=mid-1;
+        }
+        else{
+            lo=mid+1;
+        }
+    }
+    return ans;  
+
+}
+
+tc-> o(n)*log(arraay size)
+
+most important kotha
+
+lo jodi impossible a thake taile binary search er por possible a thakbe
+hi jodi possible a thake taile binary search er por eta impossible a thakbe 
+orthat opposite polarity hobe sob somoy
+fffffffffffffttttttttttttttttttt
+lo                             hi
+taile lo=t; hi=f hobe amdr lagbe t tai sob somoy lo tei value pabo
+
+
+https://www.codingninjas.com/studio/problems/rose-garden_2248080?utm_source=youtube&utm_medium=affiliate&utm_campaign=codestudio_Striver_BinarySeries&leftPanelTabValue=SUBMISSION
+
+adjacent value hisab kora sikhe gese
+
+#include<bits/stdc++.h>
+using namespace std;
+int ispossible(vector<int>arr, int mid,int k,int m){
+	int roses=0,bouquet=0;
+	for(int i=0;i<arr.size();i++){
+		if(mid>=arr[i]){
+			roses++;
+			if(roses==k){
+				bouquet++;
+				if(bouquet==m){	
+					return bouquet;
+				}
+				roses=0;
+			}
+		}
+		else roses=0;
+	}
+	return false;
+}
+int roseGarden(vector<int> arr, int k, int m)
+{
+	int n=arr.size();
+	if(m*k>n) return -1;
+	int hi=*max_element(arr.begin(), arr.end());
+	int lo=*min_element(arr.begin(), arr.end());
+	int ans=-1;
+	while(hi-lo>=0){
+		int mid=lo+(hi-lo)/2;
+		
+		if(ispossible(arr,mid,k,m)==m){
+			ans=mid;
+			hi=mid-1;
+		}else{
+			lo=mid+1;
+		}
+	}
+	return lo;
+}
+
+boolean function use kore
+
+#include<bits/stdc++.h>
+using namespace std;
+bool ispossible(vector<int>arr, int mid,int k,int m){
+	int roses=0,bouquet=0;
+	for(int i=0;i<arr.size();i++){
+		if(mid>=arr[i]){
+			roses++;
+			if(roses==k){
+				bouquet++;
+				if(bouquet==m){	
+					return true;
+				}
+				roses=0;
+			}
+		}
+		else roses=0;
+	}
+	return false;
+}
+int roseGarden(vector<int> arr, int k, int m)
+{
+	int n=arr.size();
+	if(m*k>n) return -1;
+	int hi=*max_element(arr.begin(), arr.end());
+	int lo=*min_element(arr.begin(), arr.end());
+	int ans=-1;
+	while(hi-lo>=0){
+		int mid=lo+(hi-lo)/2;
+		
+		if(ispossible(arr,mid,k,m)==true){
+			ans=mid;
+			hi=mid-1;
+		}else{
+			lo=mid+1;
+		}
+	}
+	return ans;
+}
+
+striver solution
+
+int roseGarden(vector<int> arr, int k, int m)
+{
+	int n=arr.size();
+    int lo=*min_element(arr.begin(),arr.end());
+    int hi=*max_element(arr.begin(),arr.end());
+    if(k*m>n) return -1;
+    while(hi-lo>=0){
+        int mid=lo+(hi-lo)/2;
+        int roses=0, bou=0;
+            for(int i=0;i<n;i++){
+                if(arr[i]<=mid) roses++;
+                else{
+                    bou+=(roses/k);
+                    roses=0;
+                }
+            }
+            bou+=(roses/k);
+        if(bou>=m){
+            hi=mid-1;
+        }
+        else{
+            lo=mid+1;
+        }
+    }
+    return lo;
+
+    time complexity o(n*log(max-min))
+
+    https://www.codingninjas.com/studio/problems/smallest-divisor-with-the-given-limit_1755882?utm_source=youtube&utm_medium=affiliate&utm_campaign=codestudio_Striver_BinarySeries&leftPanelTabValue=
+    
+
+    int smallestDivisor(vector<int>& arr, int limit)
+{
+	// Write your code here.
+	int n=arr.size();
+	int lo=1,hi=*max_element(arr.begin(),arr.end());
+	while(hi-lo>=0){
+		int mid=lo+(hi-lo)/2;
+		int sum=0;
+		for(int i=0;i<n;i++){
+			int a=ceil((double)arr[i]/(double)mid);
+			sum+=a;
+		}
+		if(sum>limit){ //sum>=limit hobe na KARON oita search range er baire
+			lo=mid+1;
+		}
+		else{
+			hi=mid-1;
+		}
+	}
+	return lo;
+}
+
+https://www.codingninjas.com/studio/problems/capacity-to-ship-packages-within-d-days_1229379?utm_source=youtube&utm_medium=affiliate&utm_campaign=codestudio_Striver_BinarySeries&leftPanelTabValue=SUBMISSION
+
+int leastWeightCapacity(vector<int> &a, int d)
+{
+    // Write your code here.
+    int n=a.size();
+    int lo=*max_element(a.begin(),a.end());
+    int hi=0;
+    for(int i=0;i<n;i++){
+        hi+=a[i];
+    }
+    while(hi-lo>=0){
+        int mid=lo+(hi-lo)/2;
+        int sum=0;
+        int cnt=0;
+        for(int i=0;i<n;i++){
+            if(sum+a[i]<=mid){
+                sum+=a[i];
+            }
+            else{
+                cnt++;
+                sum=a[i];
+            }
+        }
+        if(sum!=0){
+            cnt++;
+        }
+        if(cnt>d) lo=mid+1;
+        else hi=mid-1;
+    }
+    return lo;
+}
+
+
+time complexity =o(n*log(sum-max))
+}
 */
 
 
