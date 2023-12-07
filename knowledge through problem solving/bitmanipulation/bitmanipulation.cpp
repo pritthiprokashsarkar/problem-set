@@ -126,4 +126,99 @@ int main()
     cout<<(bs<<3)<<"\n"; // sob bit 3 ghor bam e shift hobe
     cout<<bs.count()<<"\n";
 }
+
+// bit manipulation basics
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n; cin>>n;
+    int i,j,k,m; cin>>i>>j>>k>>m;
+    int on_mask=(1<<i);
+    int off_mask=~(1<<j);
+    int toggle_mask=(1<<k);
+    int on_or_off_mask=1<<m;
+    cout<<(n|on_mask)<<endl;
+    cout<<(n&(off_mask))<<endl;
+    cout<<(n^toggle_mask)<<endl;
+    cout<<((m&&on_or_off_mask)==0? "false":"true")<<endl;
+}
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n; cin>>n;
+    map<int,int>mp;
+    vector<string>v(n);
+    for(int i=0;i<n;i++){
+        string s; cin>>s;
+        v[i]=s;
+    }
+    int m; cin>>m;
+    vector<string>skill;
+    for(int i=0;i<m;i++){
+        int p; cin>>p;
+        for(int i=0;i<p;i++){
+            string s; cin>>s;
+            skill.push_back(s);
+        }
+    }
+    int m; cin>>m;
+    vector<pair<int,vector<string>>>v;
+    for(int i=0;i<m;i++){
+        int p; cin>>p;
+        vector<string>temp;
+        for(int j=0;j<p;j++){
+            string s; cin>>s;
+            temp.push_back(s);
+        }
+        v.push_back({p, temp});
+        temp.clear();
+    }
+}
 */
+#include <iostream>
+#include <vector>
+#include <string>
+#include <utility>
+
+using namespace std;
+
+int main() {
+    int n; cin>>n;
+    vector<string>vv(n);
+    for(int k=0;k<n;k++){
+        string s; cin>>s;
+        vv[k]=s;
+    }
+    int m;
+    cin >> m;
+    vector<pair<int, vector<string>>> v;
+
+    for (int i = 0; i < m; i++) {
+        int p;
+        cin >> p;
+        vector<string> temp;
+
+        for (int j = 0; j < p; j++) {
+            string s;
+            cin >> s;
+            temp.push_back(s);
+        }
+
+        v.push_back({ p, temp });
+        temp.clear();
+    }
+    cout<<vv.size()<<endl;
+    for(auto it:vv){
+        cout<<it<<endl;
+    }
+    for(auto it:v){
+        cout<<it.first<<endl;
+        for(auto it2: it.second){
+            cout<<it2<<endl;
+        }
+    }
+
+    return 0;
+}
+

@@ -189,17 +189,20 @@ int main(){
 }
 
 // tower of hanoi
-*/
-/* #include<bits/stdc++.h>
+
+#include<bits/stdc++.h>
 using namespace std;
 void tower_of_hanoi(int n, int a, int b, int c){
     if(n==0) return;
-    tower_of_hanoi(n-1, a, c, b);
-    cout<<n<<"["<<a<<"->"<<b<<"]"<<endl;
-    tower_of_hanoi(n-1,c,b,a);
+    tower_of_hanoi(n-1, a, c, b); 
+    // 1st tower theke 3rd tower a 2 ta disk soraite pare ei faith
+    cout<<n<<"["<<a<<"->"<<b<<"]"<<endl; // amra 1 ta disk k 1st theke 2nd tower a sorabo
+    tower_of_hanoi(n-1,c,b,a); 
+    // 3rd tower theke 2nd tower a 2 ta disk soraite pare ei faith
 }
 int main(){
     int n; cin>>n;
     int a,b,c; cin>>a>>b>>c;
     tower_of_hanoi(n,a,b,c);
-} */
+}
+*/

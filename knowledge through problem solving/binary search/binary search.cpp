@@ -1,3 +1,4 @@
+
 // binary search 
 // binary search sudhu monotonic function e kaj kore
 // predicate function a binary search use kora jai
@@ -1447,7 +1448,73 @@ int leastWeightCapacity(vector<int> &a, int d)
 
 time complexity =o(n*log(sum-max))
 }
+
+
+aggressive cow problem
+https://www.codingninjas.com/studio/problems/aggressive-cows_1082559?utm_source=youtube&utm_medium=affiliate&utm_campaign=codestudio_Striver_BinarySeries&leftPanelTabValue=SUBMISSION
+
+#include<bits/stdc++.h>
+bool ispossible(vector<int>stalls, int mid, int k){
+    int n=stalls.size();
+    int cowcnt=1;
+    int lastpos=stalls[0];
+    for(int i=1;i<=n-1;i++){
+        if(stalls[i]-lastpos>=mid){
+            cowcnt++;
+            lastpos=stalls[i];
+        }
+        if(cowcnt>=k)return true;
+    }
+    return false;
+}
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    int n=stalls.size();
+    sort(stalls.begin(),stalls.end());
+    int lo=1;
+    int hi=stalls[n-1]-stalls[0];
+    while(hi-lo>=0){
+        int mid=lo+(hi-lo)/2;
+        if(ispossible(stalls, mid, k)==true){
+            lo=mid+1;
+        }else{
+            hi=mid-1;
+        }
+    }
+    return hi;
+}
+
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    sort(stalls.begin(),stalls.end());
+    bool ans=false;
+    int n=stalls.size();
+    int lo=1;
+    int hi=stalls[n-1]-stalls[0];
+    while(hi-lo>=0){
+        int mid=lo+(hi-lo)/2;
+        int cowcnt=1;
+        int lastpos=stalls[0];
+        for(int i=1;i<n;i++){
+            if(stalls[i]-lastpos>=mid){
+                cowcnt++;
+                lastpos=stalls[i]; 
+            }
+        }
+        if(cowcnt>=k){
+            lo=mid+1;
+        }
+        else{
+            hi=mid-1;
+        }
+    }
+    return hi;
+}
 */
+
+
+
+
 
 
 

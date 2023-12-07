@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/pritt/OneDrive/Documents/problems sets/codeforces/.cph",
-      "program": "c:/Users/pritt/OneDrive/Documents/problems sets/codeforces/.cph/build/Debug/outDebug",
+      "cwd": "c:/Users/pritt/OneDrive/Documents/problem-set/codeforces/.cph",
+      "program": "c:/Users/pritt/OneDrive/Documents/problem-set/codeforces/.cph/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
